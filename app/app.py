@@ -1,12 +1,9 @@
 import sys, os, pickle
 import streamlit as st
 import pandas as pd
-import numpy as np
 
-# Ajusta path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-# --- Imports Projeto ---
 from core.data.readcsv import read_csv
 from core.data.database import (
     create_database_and_tables,
@@ -23,10 +20,8 @@ from core.models.predict import evaluate_classifier, evaluate_regressor
 from core.explain.coefficients import extract_logit_importances, extract_linear_importances
 from core.chatbot.rules import answer_from_metrics
 
-# --- Config página ---
 st.set_page_config(page_title="🍔 OpenFoodFacts - CHATBOT", layout="wide")
 
-# --- Estado da sessão ---
 if "model_trained" not in st.session_state:
     st.session_state.model_trained = False
 if "predictions_made" not in st.session_state:
@@ -42,18 +37,15 @@ if "metrics" not in st.session_state:
 if "importances" not in st.session_state:
     st.session_state.importances = None
 
-# --- Diretórios ---
 MODEL_DIR = "model"
 if not os.path.exists(MODEL_DIR):
     os.makedirs(MODEL_DIR)
 MODEL_PATH = os.path.join(MODEL_DIR, "off_model.pickle")
 
-# --- Funções Auxiliares ---
 @st.cache_data
 def convert_df_to_csv(df):
     return df.to_csv(index=False).encode("utf-8")
 
-# --- Título e Sidebar ---
 st.title("🍔 OpenFoodFacts - CHATBOT")
 
 with st.sidebar:
@@ -66,7 +58,6 @@ with st.sidebar:
 
     st.header("2. Ações do Pipeline")
 
-    # --- Treino ---
     st.subheader("Treinar Novo Modelo")
     task = st.selectbox("Escolha a tarefa", ["Classificação", "Regressão"])
     test_size = st.slider("Tamanho do conjunto de teste", 0.1, 0.4, 0.2, 0.05)
@@ -115,7 +106,6 @@ with st.sidebar:
         else:
             st.warning("Arquivo 'Train.csv' não encontrado.")
 
-    # --- Previsões ---
     st.subheader("Usar Modelo Existente")
     if st.button("Carregar Modelo e Fazer Previsões"):
         if not os.path.exists(MODEL_PATH):
@@ -149,7 +139,6 @@ with st.sidebar:
             else:
                 st.warning("Arquivo 'Test.csv' não encontrado.")
 
-    # --- Limpeza ---
     st.header("3. Manutenção")
     if st.button("Limpar Tudo"):
         drop_database()
@@ -159,7 +148,6 @@ with st.sidebar:
         st.info("Banco, modelo e sessão resetados.")
         st.rerun()
 
-# --- Abas ---
 tab_train, tab_predict, tab_chat = st.tabs(["📊 Resultados do Treino", "🚀 Previsões", "💬 Chat"])
 
 with tab_train:
