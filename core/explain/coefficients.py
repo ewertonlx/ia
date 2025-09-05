@@ -11,17 +11,12 @@ def _feature_names_from_preprocess(pre, original_cols):
     return out + cat_feature_names
 
 def extract_logit_importances(model_pipe, X_train):
-    # Transforma os dados de treino usando o pipeline de preprocessamento fitado
     pre = model_pipe.named_steps["pre"]
-    
-    # Usa transform para obter a matriz final de features
     X_transformed = pre.transform(X_train)
     
-    # Extrai os nomes das features (OneHotEncoder fitado)
     if hasattr(pre, "get_feature_names_out"):
         feature_names = pre.get_feature_names_out(X_train.columns)
     else:
-        # Caso seja ColumnTransformer
         feature_names = []
         for name, transformer, cols in pre.transformers_:
             if hasattr(transformer, "get_feature_names_out"):
@@ -29,7 +24,6 @@ def extract_logit_importances(model_pipe, X_train):
             else:
                 feature_names.extend(cols)
     
-    # Pega os coeficientes do classificador
     clf = model_pipe.named_steps["clf"]
     coefs = clf.coef_.ravel()
     odds = np.exp(coefs)
