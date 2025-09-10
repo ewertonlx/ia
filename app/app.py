@@ -49,25 +49,24 @@ def convert_df_to_csv(df):
 st.title("🍔 OpenFoodFacts - CHATBOT")
 
 with st.sidebar:
-    st.header("1. Upload dos Dados")
+    st.header("1. Upload da Base de Dados")
     uploaded_files = st.file_uploader(
-        "Envie 'Train.csv/TSV' e/ou 'Test.csv/TSV'",
+        "Envie en.openfoodfacts.org.products.tsv",
         type=["csv", "tsv"],
         accept_multiple_files=True
     )
 
-    st.header("2. Ações do Pipeline")
+    st.header("2. Ações")
 
     st.subheader("Treinar Novo Modelo")
     task = st.selectbox("Escolha a tarefa", ["Classificação", "Regressão"])
     test_size = st.slider("Tamanho do conjunto de teste", 0.1, 0.4, 0.2, 0.05)
 
-    if st.button("Executar Treinamento"):
+    if st.button("Treinar Modelo"):
         df_train = None
         for file in uploaded_files:
             if file.name.endswith((".csv", ".tsv")) and "test" not in file.name.lower():
                 df_train = read_csv(file)
-                print("Columns after reading CSV:", df_train.columns)
 
         if df_train is not None:
             with st.spinner("Treinando o modelo..."):
@@ -104,7 +103,7 @@ with st.sidebar:
                 st.session_state.predictions_made = False
             st.success("✅ Modelo treinado e salvo com sucesso!")
         else:
-            st.warning("Arquivo 'Train.csv' não encontrado.")
+            st.warning("Arquivo en.openfoodfacts.org.products.tsv não encontrado.")
 
     st.subheader("Usar Modelo Existente")
     if st.button("Carregar Modelo e Fazer Previsões"):
@@ -137,10 +136,10 @@ with st.sidebar:
                     st.session_state.predictions_made = True
                 st.success("Previsões geradas com sucesso!")
             else:
-                st.warning("Arquivo 'Test.csv' não encontrado.")
+                st.warning("Arquivo en.openfoodfacts.org.products.tsv não encontrado.")
 
-    st.header("3. Manutenção")
-    if st.button("Limpar Tudo"):
+    st.header("3. Excluir Dados")
+    if st.button("Excluir Banco e Modelo e Resetar Sessão"):
         drop_database()
         if os.path.exists(MODEL_PATH):
             os.remove(MODEL_PATH)
