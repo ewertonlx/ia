@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS sot_food (
+CREATE TABLE IF NOT EXISTS spec_food (
     product_name TEXT,
     quantity REAL,
     fruits_vegetables_nuts_100g REAL,
