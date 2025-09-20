@@ -38,10 +38,9 @@ def create_database_and_tables():
 def insert_csv_to_sor(df):
     conn = connect_db()
 
-    # Remove colunas duplicadas de novo (precaução)
     df = df.loc[:, ~df.columns.duplicated()]
 
-    target_col = "nutrition_score_fr_100g"  # note que agora os nomes estão normalizados
+    target_col = "nutrition_score_fr_100g"
     if target_col not in df.columns:
         raise KeyError(f"A coluna '{target_col}' não existe. Colunas disponíveis: {df.columns.tolist()}")
 
@@ -72,7 +71,6 @@ def run_etl_sot_to_spec_train():
 def run_etl_for_test_data(df_test):
     conn = connect_db()
     
-    # Mantém os identificadores para o resultado final
     df_spec = df_test[['nutrition_score_fr_100g'] + [col for col in df_test.columns if col not in ['nutrition_score_fr_100g', 'code', 'product_name']]]
 
     df_spec.to_sql("spec_food", conn, if_exists="replace", index=False)

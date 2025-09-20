@@ -1,12 +1,3 @@
-Show, mestre 🚀
-Peguei sua estrutura de tabelas e adaptei o `.md` que você tinha pro formato do **Open Food Facts**, já com os tipos de dados e descrições de cada camada.
-
-Aqui está a versão atualizada:
-
----
-
-# Data Model: Open Food Facts
-
 Este documento descreve a modelagem de dados em três camadas: **System of Record (SOR)**, **System of Truth (SOT)** e **Specification (SPEC)**.
 
 ---

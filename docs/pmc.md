@@ -1,4 +1,4 @@
-# Project Model Canvas — Kaggle Chatbot MVP (Exemplo Titanic)
+# Project Model Canvas — OpenFood ChatBot
 
 ## Contexto
 A nutrição é base para qualidade de vida.

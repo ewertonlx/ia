@@ -59,7 +59,7 @@ with st.sidebar:
     st.header("2. Ações")
 
     st.subheader("Treinar Novo Modelo")
-    task = st.selectbox("Escolha a tarefa", ["Classificação", "Regressão"])
+    task = "Classificação"
     test_size = st.slider("Tamanho do conjunto de teste", 0.1, 0.4, 0.2, 0.05)
 
     if st.button("Treinar Modelo"):
