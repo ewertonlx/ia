@@ -40,7 +40,7 @@ pip install -r requirements.txt
 
 ### 6. Rodar o Streamlit
 ```
-streamlit run app/main_app.py
+streamlit run app/app.py
 ```
 
 - Com isso ele irá abrir uma página no seu navegador em localhost.
