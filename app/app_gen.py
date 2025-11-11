@@ -9,7 +9,7 @@ import pandas as pd
 import streamlit as st
 from openai import OpenAI
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "key"
 # Ajuste do path caso necessário (mantive seu estilo)
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
